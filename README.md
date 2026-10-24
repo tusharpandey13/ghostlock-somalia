@@ -32,7 +32,7 @@ Root is per-boot. There is no cross-reboot persistence.
 | Result | GhostLock CVE-2026-43499 reached a uid-0 cred patch and per-boot Permissive from a uid-2000 shell, on three boots |
 | Current | Rooted and Permissive on boot `5e626925...`, via a fix that is under observation |
 | Not claimed | Persistent root, a boot-image change, disk persistence, or a stable on-device `su` |
-| Evidence | [WRITEUP.md](WRITEUP.md), [TIMELINE.md](TIMELINE.md), [STATUS.md](STATUS.md), [docs/](docs/) |
+| Evidence | [WRITEUP.md](WRITEUP.md), [TIMELINE.md](TIMELINE.md), [STATUS.md](STATUS.md), [evidence/root-runs.md](evidence/root-runs.md), [docs/](docs/) |
 
 The one step this device forced us to add, and the thing most readers will find
 interesting, is the per-boot physical load. The vendor loader places the kernel
@@ -46,11 +46,13 @@ recovers that byte, so the physical load is derivable at runtime. Full story:
 1. [WRITEUP.md](WRITEUP.md): the narrative, the derivation, and both panics.
 2. [TIMELINE.md](TIMELINE.md): the whole operation, dated and sanitized.
 3. [STATUS.md](STATUS.md): what is true right now and what is not.
-4. [docs/device/](docs/device/): the platform, boot chain, AVB, partitions.
-5. [docs/exploit/](docs/exploit/): GhostLock, the KASLR leak, the P0 derivation.
-6. [docs/lab/](docs/lab/): QEMU parity and KCFI.
-7. [reference/](reference/): offsets, hashes, glossary.
-8. [tools/somalia/](tools/somalia/): the sanitized port material.
+4. [docs/device/affected.md](docs/device/affected.md): build boundary.
+5. [docs/device/](docs/device/): platform, boot chain, AVB, partitions.
+6. [docs/exploit/](docs/exploit/): GhostLock, KASLR, P0, reliability.
+7. [docs/lab/reproduce.md](docs/lab/reproduce.md): reproduction appendix.
+8. [docs/methodology/disclosure.md](docs/methodology/disclosure.md): CVE/vendor status.
+9. [reference/](reference/): offsets, hashes, glossary.
+10. [tools/somalia/](tools/somalia/): the sanitized port material.
 
 ## What this repo is
 

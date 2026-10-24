@@ -23,6 +23,7 @@ currently true and what is not.
 - On-device wireless bootstrap through Termux, no host USB required.
 - A derived per-boot physical load (P0) formula, so each boot roots itself
   without a host-side rebuild.
+- A three-run history and a public evidence manifest: [evidence/root-runs.md](evidence/root-runs.md), [evidence/MANIFEST.md](evidence/MANIFEST.md).
 
 ## What is not demonstrated
 
