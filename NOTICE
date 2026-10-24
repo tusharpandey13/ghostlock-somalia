@@ -1,0 +1,31 @@
+ghostlock-somalia
+=================
+
+This is an independent, device-specific research port and field-notes
+repository for GhostLock (CVE-2026-43499).
+
+Upstream exploit and technique:
+  NebuSec (Nebula Security), "IonStack Part II — GhostLock"
+  https://nebusec.ai/research/ionstack-part-2/
+  https://github.com/NebuSec/CyberMeowfia
+  Licensed under the Apache License, Version 2.0.
+
+Pixel/aarch64 adaptation:
+  JingMatrix/pixel-ksu-root, commit 65762e7, Apache-2.0.
+  https://github.com/JingMatrix/pixel-ksu-root
+  The vendored upstream NOTICE is preserved where applicable.
+
+OnePlus port / device matrix:
+  JoinChang/ghostlock-oneplus, commit 9b2a7ba.
+  https://github.com/JoinChang/ghostlock-oneplus
+
+KernelSnitch heap-pointer side channel:
+  Lukas Maar et al., TU Graz, NDSS 2025.
+  https://github.com/isec-tugraz/KernelSnitch
+
+This repository adds a Redmi A7 Pro 5G (somalia, Unisoc T8300) port,
+per-boot P0 derivation, QEMU validation, and incident analyses. It does not
+claim discovery of CVE-2026-43499.
+
+No vendor firmware, vendor blobs, proprietary dexdumps, private keys, device
+identifiers, or owner data are included.

@@ -1,0 +1,20 @@
+#!/data/data/com.termux/files/usr/bin/sh
+# Termux-only su/sudo front end to the private GhostLock root socket.
+# Not a system-wide su; per-boot; requires gl-root to have run.
+set -eu
+SOCK="${HOME:-/data/data/com.termux/files/home}/.gl/root.sock"
+if [ ! -S "$SOCK" ]; then
+  echo "su: root not active; run gl-root first" >&2
+  exit 1
+fi
+if [ $# -eq 0 ]; then
+  exec socat -,raw,echo=0 UNIX-CONNECT:"$SOCK"
+fi
+if [ "$1" = "-c" ]; then
+  shift
+  [ $# -gt 0 ] || { echo "su: -c needs a command" >&2; exit 2; }
+  cmd="$1"
+else
+  cmd="$*"
+fi
+printf '%s\nexit\n' "$cmd" | socat - UNIX-CONNECT:"$SOCK"

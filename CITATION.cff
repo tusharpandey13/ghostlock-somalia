@@ -1,0 +1,14 @@
+cff-version: 1.2.0
+title: "GhostLock on a Redmi A7 Pro 5G: device port, per-boot P0 derivation, and incident notes"
+message: "If you use this research, cite the repository and the upstream GhostLock work."
+authors:
+  - family-names: "Pandey"
+    given-names: "Tushar"
+repository-code: "https://github.com/tusharpandey13/ghostlock-somalia"
+license: "Apache-2.0"
+references:
+  - type: "software"
+    title: "GhostLock (CVE-2026-43499) upstream research"
+    authors:
+      - name: "NebuSec"
+    url: "https://nebusec.ai/research/ionstack-part-2/"

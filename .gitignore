@@ -1,0 +1,15 @@
+.DS_Store
+*.so
+*.apk
+*.img
+*.bin
+*.tgz
+*.tar.gz
+*.zip
+fw/
+raw/
+backup/
+.env
+*.pem
+*.key
+adbkey*

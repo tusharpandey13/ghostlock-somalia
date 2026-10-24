@@ -1,0 +1,35 @@
+#!/data/data/com.termux/files/usr/bin/sh
+# Per-boot GhostLock bootstrap + interactive root shell, entirely on-device.
+# Requires: Termux adb connected to the phone's own adbd, root.sh installed.
+set -eu
+PREFIX=/data/data/com.termux/files/usr
+export PATH="$PREFIX/bin:$PATH"
+export LD_LIBRARY_PATH="$PREFIX/lib"
+export HOME=/data/data/com.termux/files/home
+SOCK="$HOME/.gl/root.sock"
+PORT=${GL_ADB_PORT:-}
+[ -n "$PORT" ] || { echo "gl-root: set GL_ADB_PORT to the wireless-debugging TLS port (from adbd/service.adb.tls.port)" >&2; exit 2; }
+
+if [ ! -S "$SOCK" ]; then
+  adb connect "127.0.0.1:$PORT" >/dev/null 2>&1 || true
+  mkdir -p "$HOME/.gl"
+  chmod 700 "$HOME/.gl"
+  adb shell "setsid env GHOSTLOCK_ROOT_SOCKET=ghostlock-root \
+    GHOSTLOCK_ROOT_SOCKET_PATH=$SOCK \
+    GHOSTLOCK_ROOT_SOCKET_UID=$(id -u) \
+    GHOSTLOCK_ROOT_SOCKET_GID=$(id -g) \
+    /data/local/tmp/root.sh >/data/local/tmp/gl-root.log 2>&1 < /dev/null &" >/dev/null 2>&1 || true
+  i=0
+  while [ $i -lt 90 ]; do
+    [ -S "$SOCK" ] && break
+    sleep 1
+    i=$((i + 1))
+  done
+fi
+
+if [ ! -S "$SOCK" ]; then
+  echo "gl-root: root socket did not appear; check /data/local/tmp/gl-root.log and GL_ADB_PORT=$PORT" >&2
+  exit 1
+fi
+
+exec socat -,raw,echo=0 UNIX-CONNECT:"$SOCK"
