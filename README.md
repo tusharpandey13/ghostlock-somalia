@@ -147,15 +147,21 @@ the fixed build completes.
 ├── docs/
 │   ├── device/      platform, boot chain, AVB, partitions
 │   ├── exploit/     GhostLock, KASLR leak, P0 derivation
-│   ├── lab/         QEMU parity
+│   ├── lab/         QEMU parity and reproduction
 │   ├── incidents/   the debugfs and binder panics
-│   └── methodology/ evidence tags and safety gates
+│   └── methodology/ evidence tags, safety, disclosure
 ├── reference/       offsets, hashes, glossary
-├── evidence/        sanitized excerpts only
+├── evidence/        sanitized excerpts and run manifest
 ├── scripts/         P0 script and root channel helpers
 ├── tools/somalia/   target, patch, termux wrappers, lab notes
-└── posts/           social drafts
+├── CHANGELOG.md     public release notes
+└── PUBLISHING.md    canonical-source checklist
 ```
+
+## Release
+
+`v1.0` is the first public research release. See [CHANGELOG.md](CHANGELOG.md)
+and [PUBLISHING.md](PUBLISHING.md).
 
 ## License and credit
 
